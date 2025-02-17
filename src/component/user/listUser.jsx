@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Table } from "../../element/table/table";
 import { ButtonClassic } from "../../element/button/buttonClassic";
-import { userList } from "../../service/user.servoce";
+import { userList, deleteUser } from "../../service/user.servoce";
 import { EditUser } from "./EditUser";
 import { Pagination } from "../../element/table/pagination";
 import { useNavigate } from "react-router";
@@ -12,14 +12,19 @@ export const ListUser = () => {
   const [modalEdit, setModalEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState({});
   const [onPageChange, setOnPageChange] = useState(1);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const totalItems = 10; // Cambia esto según tus datos
   const itemsPerPage = 3;
 
   const openEdit = (e) => {
-    console.log(e);
     setDataEdit(e);
     setModalEdit(true);
+  };
+
+  const deleteUse = (e) => {
+    deleteUser(e.id).then((resp) => {
+      console.log(resp);
+    });
   };
 
   const getUserList = () => {
@@ -53,6 +58,7 @@ export const ListUser = () => {
               }
             />
             <ButtonClassic
+              onClick={() => deleteUse(user)}
               classe={"bg-red-600"}
               text={
                 <svg
@@ -86,7 +92,10 @@ export const ListUser = () => {
   return (
     <div className="">
       <div className="mb-4">
-        <ButtonClassic text={"Nuevo usuario"} onClick={()=>navigate('/home/b')} />
+        <ButtonClassic
+          text={"Nuevo usuario"}
+          onClick={() => navigate("/home/b")}
+        />
       </div>
       <div>
         <Table data={arrayUsers} title={title} />

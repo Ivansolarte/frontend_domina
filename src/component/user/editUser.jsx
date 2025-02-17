@@ -9,12 +9,9 @@ import { patchUser } from "../../service/user.servoce";
 
 export const EditUser = ({ data, setModalEdit,upDate }) => {
   const { form, handleChangeText } = HandleChange(data);
-  console.log(data);
 
   const onsubmit = () => {
-    console.log(form);
     patchUser(form).then((resp) => {
-      console.log(resp);
       upDate()
       setModalEdit(state=>!state)
     });

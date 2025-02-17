@@ -11,10 +11,8 @@ export const NewUser = () => {
   const navigate = useNavigate();
 
   const onsubmit = () => {
-    console.log(form);
     postUser(form).then((resp)=>{
-        console.log(resp);
-        
+        console.log(resp);        
     })
     navigate("/home/a");
   };

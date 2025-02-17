@@ -8,14 +8,7 @@ export const userList = async (payload) => {
       "Content-Type": "application/json",
     },
   });
-
-  //   if (!resp.ok) {
-  //     throw new Error(`Error: ${resp.status}`);
-  //   }
-
   const data = await resp.json();
-
-  // Paginado en la respuesta
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
   const paginatedUsers = data.slice(startIndex, endIndex);
@@ -56,6 +49,19 @@ export const postUser = async (payload) => {
   return data;
 };
 
+export const deleteUser = async (payload) => {
+  const url = `https://jsonplaceholder.typicode.com/users`;
+  const body = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const resp = await fetch(`${url}/${payload}`, body);
+  const data = await resp.json();
+  return data;
+};
+
 export const login = async (payload) => {
   const url = `https://jsonplaceholder.typicode.com/users`;
   const resp = await fetch(url, {
@@ -67,7 +73,6 @@ export const login = async (payload) => {
 
   const data = await resp.json();
   const res = data.find((row) => row.email === payload.email);
-  console.log("entro");
   if (payload.password != "1234") {
     return undefined;
   } else {

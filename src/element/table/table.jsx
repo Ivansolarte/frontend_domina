@@ -2,8 +2,7 @@ import React from "react";
 import { P } from "../text/p";
 
 export const Table = ({ data = [], title = [] }) => {
-  console.log(data);
-
+ 
   return (
     <div className="borde rounded-xl border">
       <ul
